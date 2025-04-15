@@ -1,0 +1,14 @@
+on:
+  push:
+    branches:
+      - feature/*
+      - bugfix/*
+  pull_request:
+    branches:
+      - main
+
+name: validate
+
+jobs:
+  version:
+    uses: gehlotanish/github-workflows/.github/workflows/pre-commit.yaml@main
