@@ -1,5 +1,4 @@
-# template-terraform
-Template repository for all terraform module repositories
+# Terraform module for subscription and role assignments  
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
