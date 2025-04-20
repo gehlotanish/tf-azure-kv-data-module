@@ -1,15 +1,15 @@
-resource "azurerm_key_vault_secret" "this" {
+resource "azurerm_key_vault_secret" "main" {
   for_each     = var.secrets
   name         = each.key
   value        = each.value.value
-  key_vault_id = data.azurerm_key_vault.this.id
+  key_vault_id = data.azurerm_key_vault.main.id
   content_type = try(each.value.content_type, null)
 }
 
-resource "azurerm_key_vault_key" "this" {
+resource "azurerm_key_vault_key" "main" {
   for_each     = var.keys
   name         = each.key
-  key_vault_id = data.azurerm_key_vault.this.id
+  key_vault_id = data.azurerm_key_vault.main.id
 
   key_type = each.value.key_type
   key_size = try(each.value.key_size, null)
@@ -33,10 +33,10 @@ resource "azurerm_key_vault_key" "this" {
 }
 
 
-resource "azurerm_key_vault_certificate" "this" {
+resource "azurerm_key_vault_certificate" "main" {
   for_each     = var.certificates
   name         = each.key
-  key_vault_id = data.azurerm_key_vault.this.id
+  key_vault_id = data.azurerm_key_vault.main.id
 
   certificate_policy {
     issuer_parameters {
@@ -78,10 +78,10 @@ resource "azurerm_key_vault_certificate" "this" {
 }
 
 
-resource "azurerm_key_vault_certificate_issuer" "this" {
+resource "azurerm_key_vault_certificate_issuer" "main" {
   for_each      = var.certificate_issuers
   name          = each.key
-  key_vault_id  = data.azurerm_key_vault.this.id
+  key_vault_id  = data.azurerm_key_vault.main.id
   provider_name = each.value.provider_name
   org_id        = try(each.value.org_id, null)
   account_id    = each.value.account_id
